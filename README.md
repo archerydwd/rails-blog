@@ -1,7 +1,7 @@
 # Ruby on Rails Blog Application
 
 I built this app with the Ruby on Rails framework to be used as part of a series of applications that I will be 
-performing tests on. This is a Ruby on Rails version of the Chicago Boss blog application: https://github.com/archerydwd/boss-blog which I also developed for the following reason.
+performing tests on. This is a Ruby on Rails version of the Chicago Boss blog application: https://github.com/archerydwd/boss-blog.
 
 I am going to be performing tests on this app using some load testing tools such as Tsung, J-Meter and Basho bench. 
 
