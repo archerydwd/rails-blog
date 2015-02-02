@@ -10,7 +10,7 @@ You can build this app using a framework of your choosing and then follow the te
 
 ###Installing Ruby and Rails
 
-At time of writing this Ruby version is: 2.2.0 and rails version is: 4.2.0
+At time of writing this the Ruby version was: 2.2.0 and the rails version was: 4.2.0
 Use RVM, the Ruby Version Manager: https://rvm.io, to install Ruby and manage your Rails versions.
 If you are using osx then there is a system version of Ruby, which will more than likely be out of data. Use RVM to install Ruby and the “system Ruby” will remain on your system but the RVM version will take precedence when calls are made to Ruby.
 
