@@ -51,11 +51,67 @@ rails -v
 
 **Create the blog app**
 ```
-make app PROJECT=blog
-cd ../blog
+rails new blog
+cd blog
 ```
 
 ###Building the application
+
+**Starting the development server**
+
+To start the dev server:
+```
+rails server
+```
+
+To stop the development server:
+```
+ctrl + c
+```
+
+**Create a welcome controller with a action called index**
+
+In rails we can use something called generators to generate controllers with actions. To do this we can enter the following:
+```
+rails generate controller welcome index
+```
+
+The above creates a few things for us, the following is the output:
+```
+create app/controllers/welcome_controller.rb
+route  get 'welcome/index'
+invoke erb
+create app/views/welcome
+create app/views/welcome/index.html.erb
+invoke test_unit
+create test/controllers/welcome_controller_test.rb
+invoke helper
+create app/helpers/welcome_helper.rb
+invoke test_unit
+create test/helpers/welcome_helper_test.rb
+invoke assets
+invoke coffee
+create app/assets/javascripts/welcome.js.coffee
+invoke scss
+create app/assets/stylesheets/welcome.css.scss
+```
+
+For the purposes of this we are only concerned with:
+* create app/controllers/welcome_controller.rb
+* route  get 'welcome/index'
+* create app/views/welcome
+* create app/views/welcome/index.html.erb
+
+the controller holds actions which map to our templates (views) and the requesting url is matched with what is in the route file (config/routes.rb) and this tells rails which action to call, and in which controller.
+
+To make this index appear as our root page, eg. when we go to http://localhost:3000/. We need to edit: config/routes.rb and add the following:
+```
+root 'welcome#index'
+```
+=============================================
+**ADD THE INDEX PAGE**
+=============================================
+
 
 **Create the article model**
 
