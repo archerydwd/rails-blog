@@ -176,7 +176,9 @@ We can then update: app/views/articles/show.html.erb
 | <%= link_to 'Edit', edit_article_path(@article) %>
 ```
 
+In the above, you will notice something about comments, include this and we will have a look later at them.
 Next we will update: app/views/articles/new.html.erb
+
 ```
 <h1>New article</h1>
 <%= render 'form' %>
@@ -227,6 +229,7 @@ Ok that's all of our views for articles, we will now move onto the controller.
 **The articles controller**
 
 The controller for articles was created above with out generator command, so lets now edit: app/controllers/articles_controller.rb
+
 ```
 class ArticlesController < ApplicationController
 
@@ -291,7 +294,7 @@ The above has lots of methods, The thing to note for now is the method names cor
 Now we need a model to complete the M in our MVC. To do this just enter the following:
 
 ```
-rails generate model article title:string text:text
+rails generate model Article title:string text:text
 ```
 
 This creates the following file: app/models/article.rb:
@@ -328,18 +331,137 @@ This is used for storing data in the database, in the form we wanted.
 
 **Creating the comments**
 
-======
+for this, we will need a controller, model and 2 views which are just include files. Lets start with the model:
 
+```
+rails generate model Comment commenter:string body:text article:references
+```
 
+The above has one difference to the article model generator, it includes a article:references field. This just means that we will create a comment model that will hold references to articles.
 
+If you now look at: app/models/comment.rb you will see a line that says belongs_to :article this is the way rails links active records, so comments know to what article they belong.
 
+```
+class Comment < ActiveRecord::Base
+  belongs_to :article
+end
+```
 
+We now need to add 'has_many :comments dependent: :destroy' to: app/models/article.rb
+
+```
+class Article < ActiveRecord::Base
+  has_many :comments, dependent: :destroy
+  validates :title, presence: true, length: { minimum: 5 }
+end
+```
+
+This means that each article has many comments. If an article is deleted, destroy its connected comments.
+
+Now we need to add comments to: config/routes.rb as a nested resource within articles:
+
+```
+resources :articles do
+    resources :comments
+  end
+```
+
+**Create the comments controller**
+
+Now we need to create a controller, to do this we will again use the generator:
+
+```
+rails generate controller Comments
+```
+
+Update this controller: app/controllers/comments_contoller.rb
+
+```
+class CommentsController < ApplicationController
+
+  http_basic_authenticate_with name: "darren", password: "secret", only: :destroy
+
+  def destroy
+    @article = Article.find(params[:article_id])
+    @comment = @article.comments.find(params[:id])
+    @comment.destroy
+    redirect_to article_path(@article)
+  end
+
+  def create
+    @article = Article.find(params[:article_id])
+    @comment = @article.comments.create(comment_params)
+    redirect_to article_path(@article)
+  end
+
+  private
+    def comment_params
+      params.require(:comment).permit(:commenter, :body)
+    end
+
+end
+```
+
+**Create the forms for the comments**
+
+As we seen earlier, the articles/show.html.erb mentions comments in two render parts, Lets now create them.
+
+```
+touch app/views/comments/_comment.html.erb
+touch app/views/comments/_form.html.erb
+```
+
+Then edit: app/views/comments/_comment.html.erb
+
+```
+<p>
+  <strong>Commenter:</strong>
+  <%= comment.commenter %>
+</p>
+<p>
+  <strong>Comment:</strong>
+  <%= comment.body %>
+</p>
+<p>
+  <%= link_to 'Destroy Comment', [comment.article, comment], method: :delete, data: { confirm: 'Are you sure?' } %>
+</p>
+```
+
+This will display all comments for a certain article beening viewed. It will also give us the option to delete a comment.
+
+Now edit: app/views/comments/_form.html.erb
+
+```
+<%= form_for([@article, @article.comments.build]) do |f| %>
+  <p>
+    <%= f.label :commenter %><br>
+    <%= f.text_field :commenter %>
+  </p>
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+```
+
+This is just a form to create new comments.
+
+**Migrations**
+
+Every time that we created a model, we also created a migration for that model. This is responsible for creating the database for storing that certain model. To run the migrations we have so far:
+
+```
+rake db:migrate
+```
+
+This will create the tables associated with the models in the database. For this application, we don't perform tests on the response time from the database, so this is as far as I will go in explaining migrations. If you want to learn more on them, I have a much more detailed application called 'ror_sakila', which uses a version of the mysql sakila database.
 
 **The end**
 
-Thats all there is to it. This was my first self made (without a tutorial) application with Chicago Boss, so if you notice
-any problems or enhancements, please drop me a message. 
-
+Thats all there is to it. 
 Thanks for reading and hopefully you learned something. :)
 
 Darren.
