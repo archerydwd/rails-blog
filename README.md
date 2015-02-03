@@ -407,6 +407,7 @@ end
 As we seen earlier, the articles/show.html.erb mentions comments in two render parts, Lets now create them.
 
 >touch app/views/comments/_comment.html.erb
+
 >touch app/views/comments/_form.html.erb
 
 Then edit: app/views/comments/_comment.html.erb
