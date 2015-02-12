@@ -50,8 +50,6 @@ gem install rails
 rails -v
 ```
 
-
-
 **Create the blog app**
 ```
 rails new blog
@@ -236,8 +234,6 @@ The controller for articles was created above with out generator command, so let
 ```
 class ArticlesController < ApplicationController
 
-  http_basic_authenticate_with name: "yourname", password: "secret", except: [:index, :show]
-
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
@@ -290,7 +286,7 @@ class ArticlesController < ApplicationController
 end
 ```
 
-The above has lots of methods, The thing to note for now is the method names corrospond to our view names. This helps when the controller method index gets called, rails knows that the index.html.erb file needs to be displayed with this. The athentication line at the top, provides very basic authentication and except allows them files to be accessed without login.
+The above has lots of methods, The thing to note for now is the method names corrospond to our view names. This helps when the controller method index gets called, rails knows that the index.html.erb file needs to be displayed with this.
 
 **Creating the articles model**
 
@@ -382,8 +378,6 @@ Update this controller: app/controllers/comments_contoller.rb
 ```
 class CommentsController < ApplicationController
 
-  http_basic_authenticate_with name: "darren", password: "secret", only: :destroy
-
   def destroy
     @article = Article.find(params[:article_id])
     @comment = @article.comments.find(params[:id])
@@ -429,7 +423,7 @@ Then edit: app/views/comments/_comment.html.erb
 </p>
 ```
 
-This will display all comments for a certain article beening viewed. It will also give us the option to delete a comment.
+This will display all comments for a certain article being viewed. It will also give us the option to delete a comment.
 
 Now edit: app/views/comments/_form.html.erb
 
