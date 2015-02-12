@@ -1,7 +1,5 @@
 class ArticlesController < ApplicationController
 
-	http_basic_authenticate_with name: "darren", password: "secret", except: [:index, :show]
-
 	def destroy
 		@article = Article.find(params[:id])
 		@article.destroy
