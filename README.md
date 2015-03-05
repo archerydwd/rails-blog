@@ -455,7 +455,88 @@ rake db:migrate
 
 This will create the tables associated with the models in the database. For this application, we don't perform tests on the response time from the database, so this is as far as I will go in explaining migrations. If you want to learn more on them, I have a much more detailed application called 'ror_sakila', which uses a version of the mysql sakila database.
 
-**The end**
+###Getting Production Ready
+
+The following changes must be made in order to have the application in a production environment ready state.
+
+**Add A Secret Key**
+
+We need to add a secret key for production mode, this can be done by changing directory to the railsblog and running the following command:
+
+```
+rake secret
+```
+
+If this does not work, then please run:
+
+```
+bundle exec rake secret
+```
+
+The above command will produce a secret key. Copy this key and place it in as a production key in: config/secrets.yml
+
+```
+development:
+  secret_key_base: 05215a3d1a1dd8648f7c6ee3c333778e5c99cb9115fdf313f1ee79b276008dd32d36817dc60bded89d3eb7d679797096758ae2667c08ff756e234851016296ed
+
+test:
+  secret_key_base: 5b3e49d01fe19e183c7c5d4a758352071cf581d1192f9c3c137f99e8c383436f3cc99893bf1fb34a8140c17cfdebfce67e44ea64ba25c85cdee8cb72d5a9512f
+
+production:
+  secret_key_base: 5ec6914064c1f8ebf3fe3e0ccb29351240db088138e68462f2067582066a3e6bba48792b41ec22193567893f5638a564f9c44a6bdceeb9083ba6b6f74ae0eba8
+```
+
+In the normal use case this secret key should be placed in an environment variable and read in here. For us this is not necessary as we are not deploying a release of the application.
+
+**Change The Production Database**
+
+In the normal development use case you should have a seperate database for development, testing and production. In our example we can use the development database for production as we are not building a product for general release but rather for testing purposes. In saying that we now need to rename the production database from production to development as per the following: config/database.yml:
+
+```
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: db/development.sqlite3
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: db/test.sqlite3
+
+production:
+  <<: *default
+  database: db/development.sqlite3
+```
+
+**Add a new route**
+
+As we will be testing this application along with other versions of it, I have added a route that will match with the articles/new route to make it easier to deploy the same test across the different versions of the app. Edit config/routes.rb and add the following:
+
+```
+match 'articles/create' => 'articles#new', via: :get
+```
+
+**How To Run In Production Mode**
+
+To start the app in the production mode issue the command:
+
+```
+rails s -e production
+```
+
+###The End
 
 Thats all there is to it. 
 Thanks for reading and hopefully you learned something. :)
