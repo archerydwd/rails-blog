@@ -10,7 +10,9 @@ I am going to be performing tests on this app using some load testing tools such
 Once I have tested this application and the Chicago Boss verison of it, I will publish the results, which can then be used as a benchmark for others to use when trying to choose a framework. 
 You can build this app using a framework of your choosing and then follow the testing mechanisms that I will describe and then compare the results against my benchmark to get an indication of performance levels of your chosen framework.
 
+==
 ###Installing Ruby and Rails
+==
 
 At time of writing this the Ruby version was: 2.2.0 and the rails version was: 4.2.0.
 
@@ -56,7 +58,9 @@ rails new blog
 cd blog
 ```
 
+==
 ###Building the application
+==
 
 **Starting the development server**
 
@@ -455,7 +459,9 @@ rake db:migrate
 
 This will create the tables associated with the models in the database. For this application, we don't perform tests on the response time from the database, so this is as far as I will go in explaining migrations. If you want to learn more on them, I have a much more detailed application called 'ror_sakila', which uses a version of the mysql sakila database.
 
+==
 ###Getting Production Ready
+==
 
 The following changes must be made in order to have the application in a production environment ready state.
 
@@ -536,7 +542,9 @@ To start the app in the production mode issue the command:
 rails s -e production
 ```
 
+==
 ###The End
+==
 
 Thats all there is to it. 
 Thanks for reading and hopefully you learned something. :)
