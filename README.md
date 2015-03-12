@@ -542,6 +542,21 @@ To start the app in the production mode issue the command:
 rails s -e production
 ```
 
+**Problem**
+
+If you get a problem when you run the app and try to delete a comment or an article. Then you need to do the following:
+
+```
+vim Gemfile
+```
+
+uncomment the line that includes 'therubyracer'
+and then:
+
+```
+bundle install
+```
+
 ==
 ###The End
 ==
