@@ -54,8 +54,8 @@ rails -v
 
 **Create the blog app**
 ```
-rails new blog
-cd blog
+rails new ror_blog
+cd ror_blog
 ```
 
 ==
