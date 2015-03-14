@@ -3,7 +3,7 @@
 Please note this is not a tutorial, I have wrote it in that style so you can follow along. If you get into trouble (like I did) try the mailing list or just google it. You will find that you will actually learn more from researching it and getting into tight spots. ;) 
 
 I built this app with the Ruby on Rails framework to be used as part of a series of applications that I will be 
-performing tests on. This is a Ruby on Rails version of the Chicago Boss blog application: https://github.com/archerydwd/boss-blog & the Flask version is here: https://github.com/archerydwd/flask_blog
+performing tests on. This is a Ruby on Rails version of the Chicago Boss blog application: https://github.com/archerydwd/cb_blog & the Flask version is here: https://github.com/archerydwd/flask_blog
 
 I am going to be performing tests on this app using some load testing tools such as Gatling & Tsung. 
 
