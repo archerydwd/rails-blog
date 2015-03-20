@@ -1,17 +1,18 @@
 # Ruby on Rails Blog Application
 
-Please note this is not a tutorial, I have wrote it in that style so you can follow along. If you get into trouble (like I did) try the mailing list or just google it. You will find that you will actually learn more from researching it and getting into tight spots. ;) 
+This is a tutorial for building a Ruby on Rails blog application. If you get into trouble (like I did) try the mailing list or google it. For all the problems that I had, I have noted below the fixes I used.
 
 I built this app with the Ruby on Rails framework to be used as part of a series of applications that I will be 
-performing tests on. This is a Ruby on Rails version of the Chicago Boss blog application: https://github.com/archerydwd/cb_blog & the Flask version is here: https://github.com/archerydwd/flask_blog
+performing benchmarking tests on. See my Chicago Boss version of this application here: https://github.com/archerydwd/cb_blog The Flask version is here: https://github.com/archerydwd/flask_blog
 
 I am going to be performing tests on this app using some load testing tools such as Gatling & Tsung. 
 
-Once I have tested this application and the other verisons of it, I will publish the results, which can then be used as a benchmark for others when trying to choose a framework. 
-You can build this app using a framework of your choosing and then follow the testing mechanisms that I will describe and then compare the results against my benchmark to get an indication of performance levels of your chosen framework.
+Once I have tested this application and the other verisons of it, I will publish the results, which can then be used as a benchmark for others when trying to choose a framework.
+
+You can build this app using a framework of your choosing and then follow the testing mechanisms that I have described here: https://github.com/archerydwd/gatling-tests Then compare your results against my benchmarks to get an indication of performance levels for your chosen framework.
 
 ==
-###Installing Ruby and Rails
+###Installing Ruby and Ruby on Rails
 ==
 
 At time of writing this the Ruby version was: 2.2.0 and the rails version was: 4.2.0.
@@ -121,7 +122,7 @@ For the purposes of this we are only concerned with:
 * route  get 'articles/create'
 * route  get 'articles/show'
 * route  get 'articles/index'
-* * route  get 'articles/new'
+* route  get 'articles/new'
 * create app/views/articles/ all of them
 
 the controller holds actions which map to our templates (views) and the requesting url is matched with what is in the route file (config/routes.rb) and this tells rails which action to call, and in which controller.
@@ -561,7 +562,6 @@ bundle install
 ###The End
 ==
 
-Thats all there is to it. 
 Thanks for reading and hopefully you learned something. :)
 
 Darren.
