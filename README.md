@@ -11,9 +11,8 @@ Once I have tested this application and the other verisons of it, I will publish
 
 You can build this app using a framework of your choosing and then follow the testing mechanisms that I have described here: https://github.com/archerydwd/gatling-tests Then compare your results against my benchmarks to get an indication of performance levels for your chosen framework.
 
-==
+=
 ###Installing Ruby and Ruby on Rails
-==
 
 At time of writing this the Ruby version was: 2.2.0 and the rails version was: 4.2.0.
 
@@ -31,7 +30,6 @@ If you are using osx then there is a system version of Ruby, which will more tha
 ```
 xcode-select --install
 ```
-
 
 If you have RVM installed you can update it and then install Ruby.
 ```
@@ -59,9 +57,8 @@ rails new ror_blog
 cd ror_blog
 ```
 
-==
+=
 ###Building the application
-==
 
 **Starting the development server**
 
@@ -164,6 +161,7 @@ Next we must update the index view: app/views/articles/index.html.erb. This is d
 ```
 
 We can then update: app/views/articles/show.html.erb
+
 ```
 <p>
   <strong>Title:</strong>
@@ -460,9 +458,8 @@ rake db:migrate
 
 This will create the tables associated with the models in the database. For this application, we don't perform tests on the response time from the database, so this is as far as I will go in explaining migrations. If you want to learn more on them, I have a much more detailed application called 'ror_sakila', which uses a version of the mysql sakila database.
 
-==
+=
 ###Getting Production Ready
-==
 
 The following changes must be made in order to have the application in a production environment ready state.
 
@@ -558,9 +555,8 @@ and then:
 bundle install
 ```
 
-==
+=
 ###The End
-==
 
 Thanks for reading and hopefully you learned something. :)
 
