@@ -577,7 +577,7 @@ bundle install
 =
 ###The End
 
-Thanks for reading and hopefully you learned something. :)
+Thanks for reading.
 
 Darren.
 
