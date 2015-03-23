@@ -14,10 +14,11 @@ You can build this app using a framework of your choosing and then follow the te
 =
 ###Installing Ruby and Ruby on Rails
 
-At time of writing this the Ruby version was: 2.2.0 and the rails version was: 4.2.0.
+At the time of writing, the Ruby version was: 2.2.0 and the rails version was: 4.2.0.
 
-Use RVM, the Ruby Version Manager: https://rvm.io, to install Ruby and manage your Rails versions.
-If you are using osx then there is a system version of Ruby, which will more than likely be out of data. Use RVM to install Ruby and the “system Ruby” will remain on your system but the RVM version will take precedence when calls are made to Ruby.
+Use RVM, the Ruby Version Manager: https://rvm.io to install Ruby and manage your Rails versions.
+
+If you are using osx then there is a system version of Ruby, which will more than likely be out of data. Use RVM to install Ruby. The “system Ruby” will remain on your system but the RVM version will take precedence when calls are made.
 
 ```
 \curl -L https://get.rvm.io | bash -s stable --ruby
@@ -32,6 +33,7 @@ xcode-select --install
 ```
 
 If you have RVM installed you can update it and then install Ruby.
+
 ```
 rvm get stable --autolibs=enable
 rvm install ruby
@@ -51,30 +53,35 @@ gem install rails
 rails -v
 ```
 
-**Create the blog app**
+=
+###Create the blog application
+
 ```
 rails new ror_blog
 cd ror_blog
 ```
 
-=
-###Building the application
-
 **Starting the development server**
 
 To start the dev server:
+
 ```
 rails server
 ```
 
+**Stopping the development server**
+
 To stop the development server:
+
 ```
 ctrl + c
 ```
 
-**Create articles**
+=
+###Building the application - Create articles
 
 In rails we can use something called generators to generate controllers with actions. To generate our articles controller with the methods index, show, new, destroy, edit, update:
+
 ```
 rails generate controller articles index show new destroy edit update
 ```
@@ -111,7 +118,7 @@ invoke    scss
 create      app/assets/stylesheets/articles.css.scss
 ```
 
-For the purposes of this we are only concerned with:
+For the purposes of this application we are only concerned with:
 * create app/controllers/articles_controller.rb
 * route  get 'articles/update'
 * route  get 'articles/edit'
@@ -125,17 +132,21 @@ For the purposes of this we are only concerned with:
 the controller holds actions which map to our templates (views) and the requesting url is matched with what is in the route file (config/routes.rb) and this tells rails which action to call, and in which controller.
 For the above, we actually only need the views: edit.html.erb, index.html.erb, new.html.erb and show.html.erb.
 So we can remove the rest of them:
+
 ```
 rm app/views/articles/destroy.html.erb
 rm app/views/articles/update.html.erb
 rm app/views/articles/create.html.erb
 ```
+
 To make app/views/articles/index.html.erb appear as our root page, eg. when we go to http://localhost:3000/. We need to edit: config/routes.rb and add the following:
+
 ```
 root 'articles#index'
 ```
 
-**Update the views**
+=
+###Update the views
 
 Next we must update the index view: app/views/articles/index.html.erb. This is done using HTML and ERB (Embedded Ruby). View files always end in .html.erb.
 ```
@@ -188,6 +199,7 @@ Next we will update: app/views/articles/new.html.erb
 <%= render 'form' %>
 <%= link_to 'Back', articles_path %>
 ```
+
 Short and sweet, here we are including the file: app/views/articles/_form.html.erb which is a reusable element that we will now create:
 
 >touch app/views/articles/_form.html.erb
@@ -230,7 +242,8 @@ Now edit: app/views/articles/edit.html.erb
 Another short and sweet file.
 Ok that's all of our views for articles, we will now move onto the controller.
 
-**The articles controller**
+=
+###The articles controller
 
 The controller for articles was created above with out generator command, so lets now edit: app/controllers/articles_controller.rb
 
@@ -291,7 +304,8 @@ end
 
 The above has lots of methods, The thing to note for now is the method names corrospond to our view names. This helps when the controller method index gets called, rails knows that the index.html.erb file needs to be displayed with this.
 
-**Creating the articles model**
+=
+###Creating the articles model
 
 Now we need a model to complete the M in our MVC. To do this just enter the following:
 
@@ -331,7 +345,8 @@ end
 
 This is used for storing data in the database, in the form we wanted.
 
-**Creating the comments**
+=
+###Creating the comments
 
 for this, we will need a controller, model and 2 views which are just include files. Lets start with the model:
 
@@ -368,7 +383,8 @@ resources :articles do
   end
 ```
 
-**Create the comments controller**
+=
+###Create the comments controller
 
 Now we need to create a controller, to do this we will again use the generator:
 
@@ -402,7 +418,8 @@ class CommentsController < ApplicationController
 end
 ```
 
-**Create the forms for the comments**
+=
+###Create the forms for the comments
 
 As we seen earlier, the articles/show.html.erb mentions comments in two render parts, Lets now create them.
 
@@ -448,7 +465,8 @@ Now edit: app/views/comments/_form.html.erb
 
 This is just a form to create new comments.
 
-**Migrations**
+=
+###Migrations
 
 Every time that we created a model, we also created a migration for that model. This is responsible for creating the database for storing that certain model. To run the migrations we have so far:
 
@@ -532,7 +550,8 @@ As we will be testing this application along with other versions of it, I have a
 match 'articles/create' => 'articles#new', via: :get
 ```
 
-**How To Run In Production Mode**
+=
+###How To Run In Production Mode
 
 To start the app in the production mode issue the command:
 
